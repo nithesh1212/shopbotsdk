@@ -91,8 +91,8 @@
     color: white;
     margin-top: 6px;
     padding: 8px 20px 8px 10px;
-    background: #5B9BD5; 
-    border-radius: 20px;
+    background: #009DAB; 
+    border-radius: 20px 0 0 20px;
     display:block;
     opacity: 0;
     cursor: pointer;
@@ -106,7 +106,7 @@
 
 .kore-chat-window.minimize .minimized{
     display: block;
-    background: #5B9BD5;
+    background: #009DAB;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -116,6 +116,7 @@
     cursor: pointer;
     position: absolute;
     right:0;
+	padding: 10px;
 }
 
 .kore-chat-window .minimized,.kore-chat-window .minimized-title{
@@ -250,16 +251,6 @@ ul.chat-container li .profile-photo .user-account{
 ul.chat-container li .messageBubble img{
 	max-width: 100%;
 	height: auto;
-}
-ul.chat-container li .messageBubble p.indent{
-	padding-left: 10px;
-	border-left: 6px solid #DDD;
-}
-ul.chat-container li .messageBubble pre{
-	padding: 10px 12px;
-	border: 1px solid #DDD;
-	white-space: pre-wrap;
-	border-radius: 4px;
 }
 ul.chat-container li.fromCurrentUser .messageBubble{
     float:right;

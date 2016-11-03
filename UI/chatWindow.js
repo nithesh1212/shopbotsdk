@@ -284,22 +284,22 @@ function koreBotChat() {
 			var txtArr = val.split(/\r?\n/);
 			for(var i = 0; i < txtArr.length;i++) {
 				var _lineBreakAdded = false;
-				if (txtArr[i].indexOf('#h6') === 0 || txtArr[i].indexOf('#H6') === 0) {
+				if (txtArr[i].indexOf('=h6') === 0 || txtArr[i].indexOf('=H6') === 0) {
 					txtArr[i] = '<h6>' + txtArr[i].substring(3) + '</h6>';
 					_lineBreakAdded = true;
-				} else if (txtArr[i].indexOf('#h5') === 0 || txtArr[i].indexOf('#H5') === 0) {
+				} else if (txtArr[i].indexOf('=h5') === 0 || txtArr[i].indexOf('=H5') === 0) {
 					txtArr[i] = '<h5>' + txtArr[i].substring(3) + '</h5>';
 					_lineBreakAdded = true;
-				} else if (txtArr[i].indexOf('#h4') === 0 || txtArr[i].indexOf('#H4') === 0) {
+				} else if (txtArr[i].indexOf('=h4') === 0 || txtArr[i].indexOf('=H4') === 0) {
 					txtArr[i] = '<h4>' + txtArr[i].substring(3) + '</h4>';
 					_lineBreakAdded = true;
-				} else if (txtArr[i].indexOf('#h3') === 0 || txtArr[i].indexOf('#H3') === 0) {
+				} else if (txtArr[i].indexOf('=h3') === 0 || txtArr[i].indexOf('=H3') === 0) {
 					txtArr[i] = '<h3>' + txtArr[i].substring(3) + '</h3>';
 					_lineBreakAdded = true;
-				} else if(txtArr[i].indexOf('#h2') === 0 || txtArr[i].indexOf('#H2') === 0) {
+				} else if(txtArr[i].indexOf('=h2') === 0 || txtArr[i].indexOf('=H2') === 0) {
 					txtArr[i] = '<h2>' + txtArr[i].substring(3) + '</h2>';
 					_lineBreakAdded = true;
-				} else if (txtArr[i].indexOf('#h1') === 0 || txtArr[i].indexOf('#H1') === 0) {
+				} else if (txtArr[i].indexOf('=h1') === 0 || txtArr[i].indexOf('=H1') === 0) {
 					txtArr[i] = '<h1>' + txtArr[i].substring(3) + '</h1>';
 					_lineBreakAdded = true;
 				} else if (txtArr[i].length === 0) {
@@ -310,15 +310,6 @@ function koreBotChat() {
 						txtArr[i] = '<br/>&#9679; ' + txtArr[i].substring(1);
 						_lineBreakAdded = true;
 					}
-				} else if (txtArr[i].indexOf('>>') === 0) {
-					txtArr[i] = '<p class="indent">' + txtArr[i].substring(2) + '</p>';
-					_lineBreakAdded = true;
-				} else if (txtArr[i].indexOf('&gt;&gt;') === 0) {
-					txtArr[i] = '<p class="indent">' + txtArr[i].substring(8) + '</p>';
-					_lineBreakAdded = true;
-				} else if (txtArr[i].indexOf('---') === 0 || txtArr[i].indexOf('___') === 0) {
-					txtArr[i] = '<hr/>' + txtArr[i].substring(3);
-					_lineBreakAdded = true;
 				}
 				var j;
 				// Matches Image markup ![test](http://google.com/image.png)
@@ -365,24 +356,13 @@ function koreBotChat() {
 				}
 				// Matches bold markup ~test~ doesnot match ~ test ~, ~test ~, ~ test~. If all these are required then replace \S with \s
 				var _matchPre = txtArr[i].match(/\`\`\`\S([^*]*?)\S\`\`\`/g);
-				var _matchPre1 = txtArr[i].match(/\'\'\'\S([^*]*?)\S\'\'\'/g);
 				if (_matchPre && _matchPre.length > 0) {
 					for(j = 0; j < _matchPre.length; j++) {
 						var _preTxt = _matchPre[j];
 						_preTxt = _preTxt.substring(3, _preTxt.length - 3);
 						_preTxt = '<pre>' + _preTxt + '</pre>';
-						txtArr[i] = txtArr[i].replace(_matchPre[j], _preTxt);
+						txtArr[i] = txtArr[i].replace(_matchItalic[j], _italicTxt);
 					}
-					_lineBreakAdded = true;
-				}
-				if (_matchPre1 && _matchPre1.length > 0) {
-					for(j = 0; j < _matchPre1.length; j++) {
-						var _preTxt = _matchPre1[j];
-						_preTxt = _preTxt.substring(3, _preTxt.length - 3);
-						_preTxt = '<pre>' + _preTxt + '</pre>';
-						txtArr[i] = txtArr[i].replace(_matchPre1[j], _preTxt);
-					}
-					_lineBreakAdded = true;
 				}
 				if (!_lineBreakAdded && i > 0) {
 					txtArr[i] = '<br/>' + txtArr[i];

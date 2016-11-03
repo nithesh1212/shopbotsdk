@@ -20,7 +20,7 @@
 					url: "https://pilot-bots.kore.com/api/users/sts",
 					type: 'post',
 					headers: {
-						Authorization: "bearer zi+hGxZ1/w1ZipEtE5SI02zzuiF4FF1/eKk6JOvy+SE="
+						Authorization: "bearer xyz------"
 					},
 					dataType: 'json',
 					success: function (data) {
@@ -59,10 +59,39 @@
 			});
 		});
 		</script>
+		<style>
+		
+		#chatContainer{
+		position: absolute;
+    top: 0;
+    right: 0;
+		
+		}
+		.openChatWindow{
+		    float: right;
+    margin: 19px 70px 0 0;
+    border: 1px solid #00a4ff;
+    background: #fff;
+    border-radius: 4px;
+    padding: 8px;
+    color: #009dab;
+	cursor:pointer;
+		
+		}
+		
+		.openChatWindow:hover{
+		border: 1px solid #009dab;
+		}
+		
+		</style>
 	</head>
-	<body>
-		<div id="chatContainer">
-		<button class="openChatWindow">Open Chat Window</button>
+	<body style="width: 100%; height: 100%;  margin:0; padding:0;">
+	<div style="width:100%; z-index:0; height:100%;">
+	    <img style="width: 100%;" src="../libs/images/Healthcare.png"/>
+		
+	</div>
+		<div id="chatContainer" >
+		<button class="openChatWindow" >Talk to Kore Healthcare</button>
 		</div>
 	</body>
 </html>
