@@ -1,0 +1,124 @@
+<!-- Chat Start -->
+<link rel="stylesheet" type='text/css' href="entellio_files/bower_components/css/jasny-bootstrap.min.css" />
+<link rel="stylesheet" type='text/css' href="entellio_files/bower_components/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type='text/css' href="entellio_files/bower_components/font-awesome/css/font-awesome.min.css" />
+
+<div ng-app="chatApp" id="chat_div">
+<script src="entellio_files/bower_components/jquery/jquery.min.js"></script>
+<script src="entellio_files/bower_components/angular/angular.min.js"></script>
+<script src="entellio_files/bower_components/angular-chat/entellioChat_updated.js"></script>
+
+	<div class="page" ng-controller="chatController" >
+		<link rel="stylesheet" href="entellio_files/entellio_chat.css">
+		<div class="container">
+			<div class="row chat-window col-xs-5 col-md-4" id="chat_window_1" style="margin-left:10px;">
+				<div class="col-xs-12 col-md-12">
+					<div  id="panel" class="panel panel-default">
+						<div class="panel-heading top-bar">
+							<div class="col-md-8 " style="text-align:left; color: #FFF;">
+								<h4 class="panel-title"><i class="fa fa-comments fa-lg" aria-hidden="true"></i> Telenet chat</h4>
+							</div>
+							<div class="col-md-4 col-xs-4" style="text-align:right;">
+								<a style="color: #FFF!important;"href="#" >
+									<span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span>
+								  </a>
+								<a style="color: #FFF!important;" href="#" >
+									 <span id="maxim_chat_window"
+										   class="glyphicon glyphicon-resize-full icon_resize"></span>
+								</a>
+							</div>
+						</div>
+						<div class="panel-body msg_container_base " >
+							<div class="chat_box  chat_box_colors_a">
+								<div class="sectionReponse"   id="chatSession">
+
+								</div>
+							</div>
+							<div class="chat_area">
+								<input class="chat_box" style="position: relative; float: lw; float: left; width: 85%; height: 40px; border: transparent;" type="text" name="Chat" id="Chat" autocomplete="off" autofocus  placeholder="Write your message here..." />
+								<span class="submit_box">
+									<div  ng-click="submit()" id="linkadd" ><img class="send-icon" src="entellio_files/bower_components/vendors/images/send-icon.png"  alt="..." ></div>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			function changeValue(o){
+				document.getElementById('Chat').value= o.innerHTML;
+				$('#linkadd').click();
+			}
+			
+
+			$(document).ready(function() {
+				$('#responsecontext').click(function(e) {
+				 // alert(1);
+				});
+				if (!$(".panel-heading span.icon_minim").hasClass('panel-collapsed')) {
+					$(".panel-heading span.icon_minim").parents('.panel').find('.panel-body').slideUp();
+					$(".panel-heading span.icon_minim").addClass('panel-collapsed');
+					$(".panel-heading span.icon_minim").removeClass('glyphicon-minus').addClass('glyphicon-plus');
+				}
+			});
+
+			/* up and down functionality */
+			$(document).on('click', '.panel-heading span.icon_minim', function (e) {
+				var $this = $(this);
+				if (!$this.hasClass('panel-collapsed')) {
+					$this.parents('.panel').find('.panel-body').slideUp();
+					$this.addClass('panel-collapsed');
+					$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+				} else {
+					$this.parents('.panel').find('.panel-body').slideDown();
+					$this.removeClass('panel-collapsed');
+					$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+				}
+			});
+			
+			/* resizewindow and minwindow functionality */
+			 $(document).on('click', '.panel-heading span.icon_resize', function (e) {
+				var $this = $(this);
+				 if (!$this.hasClass('glyphicon-resize-full')) {
+					   $(".sectionReponse").css("height", "500px");
+						$(".msg_container_base").css("max-height", "500px");
+						$(".chat-window").css("width", "800px");
+					$this.removeClass('glyphicon-resize-small').addClass('glyphicon-resize-full');
+				} else {
+						$(".sectionReponse").css("height", "400px");
+						$(".msg_container_base").css("max-height", "400px");
+						$(".chat-window").css("width", "505px");
+					$this.removeClass('glyphicon-resize-full').addClass('glyphicon-resize-small');
+				}
+			});
+			$(document).on('focus', '.panel-footer input.chat_input', function (e) {
+				var $this = $(this);
+				if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+					$this.parents('.panel').find('.panel-body').slideDown();
+					$('#minim_chat_window').removeClass('panel-collapsed');
+					$('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+				}
+			});
+			//submit chat input on enter
+			$(document).ready(function(){
+				$('#Chat').keypress(function(e){
+				  if(e.keyCode==13)
+				  $('#linkadd').click();
+				});
+			});
+
+			$('#maxim_chat_window_').click(function(event) {
+				$(".sectionReponse").css("height", "600px");
+				$(".sectionReponse").css("width", "800px");
+			});
+		</script>
+	</div>
+		<div style="margin:0px;">
+			<iframe id="siteWindow" src="https://www2.telenet.be/en/" style="margin:0px;width:100%;height:97%"  frameborder="0"/>
+			<!-- Add x frame extemsion to chrome: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe/related -->
+		</div>	
+	
+</div>
+<!-- Chat Start End -->
