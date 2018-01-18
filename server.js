@@ -6,8 +6,7 @@ app.set('port', (process.env.PORT || 5000));
 app.get('/', function (req, res) {
 	res.header("Content-Type", "text/html");
 	console.log('*****************************');
-	fs.readFile( __dirname + "/" + "UI/entellio
-	chat.html", 'utf8', function (err, data) {
+	fs.readFile( __dirname + "/" + "UI/entellioChat.html", 'utf8', function (err, data) {
 	console.log('*****************************')
 	console.log(req.url);
     res.end( data );
