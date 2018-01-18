@@ -1,9 +1,9 @@
-var entellioBaseUrl = "http://entellio.techmahindra.com";
+var entellioBaseUrl = "https://entellio-uat.techmahindra.com";
 //var entellioBaseUrl = "https://entellio.techmahindra.com";
 //var entellioBaseUrl = "http://10.10.113.253:9200";
-var botId = 'bb9f766678e182d7c638bafd';
-var botUserName = "Telenetbot_5o2w";
-var botPassword = "SUEKEVCK";
+var botId = '42023a9afdb03c68d04a6011';
+var botUserName = "Doccentralsuppo";
+var botPassword = "TW80XAA6";
 var userNameReplaceKeyword = '<Username>';
 var userName = "John";
 var redirectToURLKeyword = "REDIRECTTOURL";
@@ -67,7 +67,16 @@ chatApp.controller("chatController", function($scope, $location, $window, $filte
 					var responseMessageArr = response.data.message;
                     var responseText ="";
 					for(var i=0; i<responseMessageArr.length; i++) {
-						responseText = responseText + responseMessageArr[i].message_data;
+						if(responseMessageArr[i].messageType == 'string')
+						{
+							responseText = responseText + responseMessageArr[i].message_data;
+						}
+
+						if(responseMessageArr[i].messageType == 'list')
+						{
+							responseText = responseText + buildHtmlTable(responseMessageArr[i].message_data);
+						}
+						
 					}					
 					
 					if(responseText.indexOf(userNameReplaceKeyword) > 0) {
@@ -160,9 +169,18 @@ chatApp.controller("chatController", function($scope, $location, $window, $filte
                         var response = JSON.parse(data);
                         //var responseText = response.message;
 						var responseMessageArr = response.data.message;
-						var responseText ="";
+						var responseText =" ";
 						for(var i=0; i<responseMessageArr.length; i++) {
-							responseText = responseText + responseMessageArr[i].message_data;
+							if(responseMessageArr[i].messageType == 'string')
+							{
+								responseText = responseText + responseMessageArr[i].message_data;
+							}
+							
+							
+							if(responseMessageArr[i].messageType == 'list')
+							{
+								responseText = responseText + buildHtmlTable(responseMessageArr[i].message_data);
+							}
 						}					
 						
 						var conversation_id = response.data.conversation;
@@ -244,6 +262,60 @@ chatApp.controller("chatController", function($scope, $location, $window, $filte
 	if(chatToken == '') {
 		$scope.getChatToken();
 	}
+	
+	//var arr = [{"Photo": "", "Contact_Number": "9011078810", "Current_Country": "IND", "Location": "TechM-Pune-Hinjewadi", "Name": "Rajesh Dharmadhikari", "Band": "P1", "Designation": "Sr. Solution Architect"}]; 
+	
+	var _table_ = document.createElement('table'),
+		_tr_ = document.createElement('tr'),
+		_th_ = document.createElement('th'),
+		_td_ = document.createElement('td');
+
+	// Builds the HTML Table out of myList json data 
+	 function buildHtmlTable(arr) {
+		//alert("buildHtmlTable");
+		_table_.border = 1;
+		 var table = _table_.cloneNode(false),
+			 columns = addAllColumnHeaders(arr, table);
+		 for (var i=0, maxi=arr.length; i < maxi; ++i) {
+			 var tr = _tr_.cloneNode(false);
+			 for (var j=0, maxj=columns.length; j < maxj ; ++j) {
+				 var td = _td_.cloneNode(false);
+					 cellValue = arr[i][columns[j]];
+				 td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
+				 tr.appendChild(td);
+			 }
+			 table.appendChild(tr);
+		 }
+		 	 //alert(table.outerHTML);
+		 
+			 //finally append the whole thing..
+			 //document.body.appendChild(table);
+
+		 return table.outerHTML;
+	 }
+
+	 // Adds a header row to the table and returns the set of columns.
+	 // Need to do union of keys from all records as some records may not contain
+	 // all records
+	 function addAllColumnHeaders(arr, table)
+	 {
+		 var columnSet = [],
+			 tr = _tr_.cloneNode(false);
+		 for (var i=0, l=arr.length; i < l; i++) {
+			 for (var key in arr[i]) {
+				 if (arr[i].hasOwnProperty(key) && columnSet.indexOf(key)===-1) {
+					 columnSet.push(key);
+					 var th = _th_.cloneNode(false);
+					 th.appendChild(document.createTextNode(key));
+					 tr.appendChild(th);
+				 }
+			 }
+		 }
+		 table.appendChild(tr);
+		 return columnSet;
+	 }		
+	
+	
 });
 
 //Uncomment below to clear chat history on window refresh/close
